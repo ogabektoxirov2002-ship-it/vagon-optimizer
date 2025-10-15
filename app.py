@@ -34,15 +34,14 @@ def smith_order(indices, n, tau):
     return sorted(indices, key=lambda i: (tau[i] / n[i], i))
 
 def find_optimal_order_for_set(indices, n, tau):
-    if len(indices) <= 8:
-        bestB = float("inf")
-        best_order = None
-        for perm in permutations(indices):
-            curB = B_for_order(list(perm), n, tau)
-            if curB < bestB:
-                bestB = curB
-                best_order = list(perm)
-        return best_order, bestB
+    bestB = float("inf")
+    best_order = None
+    for perm in permutations(indices):
+        curB = B_for_order(list(perm), n, tau)
+        if curB < bestB:
+            bestB = curB
+            best_order = list(perm)
+    return best_order, bestB
     else:
         ords = smith_order(indices, n, tau)
         return ords, B_for_order(ords, n, tau)
@@ -88,5 +87,6 @@ if st.button("Рассчитать оптимальный вариант"):
 
             st.success(f"**Суммарные вагоно-часы (B):** {total_B:.3f}")
             st.info(f"💰 Экономия по сравнению с одним локомотивом: {B_single - total_B:.3f}")
+
 
 
